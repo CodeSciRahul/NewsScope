@@ -1,12 +1,9 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import {Pool} from "pg"
-
-
-//setup database.
-console.log("database connection uri",process.env.DATABASE_URL)
+import {serverConfig} from "@/config/server.config";
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
+    connectionString: serverConfig.databaseUrl
 })
 
 export const db = drizzle(pool);

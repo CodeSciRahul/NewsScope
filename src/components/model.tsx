@@ -17,6 +17,7 @@ import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@clerk/nextjs";
+import {clientConfig} from "@/config/client.config";
 
 // Form validation schema
 const preferencesSchema = z.object({
@@ -26,6 +27,8 @@ const preferencesSchema = z.object({
 });
 
 type PreferencesForm = z.infer<typeof preferencesSchema>;
+
+const url = clientConfig.baseUrl;
 
 const style = {
   position: "absolute",
@@ -59,7 +62,7 @@ export default function UserPreferenceModel() {
   ): Promise<MutationResponse> => {
     const token = await getToken();
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user-preference`,
+      `${url}/api/user-preference`,
       newData,
       {
         headers: {

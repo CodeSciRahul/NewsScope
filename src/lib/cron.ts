@@ -1,10 +1,8 @@
 import cron from "node-cron";
-
-const API_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/news-article/hourly-fetch`;
+import {serverConfig} from "@/config/server.config";
+const API_URL = `${serverConfig.apiBaseUrl}/api/news-article/hourly-fetch`;
 
 cron.schedule("* * * * *", async () => { // Runs every hour at  minutes
-  console.log("Triggering hourly news fetch...");
-
   try {
     const response = await fetch(API_URL, {method: 'GET'});
     const data = await response.json();
